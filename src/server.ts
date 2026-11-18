@@ -1927,7 +1927,7 @@ With \`alexandria\` in place of \`url\`, the tool runs catalogued provider capab
       destructiveHint: false, // Read-only discovery; no deletion or destructive updates.
     },
     description: `
-Enumerate URLs indexed under one website through Firecrawl without fetching each page's content. Use this when the request asks for a site's URL inventory, when several relevant pages must be located, or when the desired page URL is unknown. An optional \`search\` term narrows the URL list, while sitemap, subdomain, query-parameter, and result-limit options control coverage.
+List the URLs of one website (its sitemap and indexed pages) without fetching any page's content. Use this first when you need a site's URL inventory, need to find which page covers a topic, or do not know the exact page URL yet. An optional \`search\` term narrows the URL list, while sitemap, subdomain, query-parameter, and result-limit options control coverage.
 
 \`url\` may omit the scheme (\`example.com\`); it is read as https. Returns matching URLs rather than page bodies. Retrieve one page with \`firecrawl_scrape\`; collect content across multiple pages with \`firecrawl_crawl\`. Authenticated responses can include an \`id\` for optional map feedback.
 `,
@@ -1956,6 +1956,38 @@ Enumerate URLs indexed under one website through Firecrawl without fetching each
         origin: requestOrigin(mcpClient, session),
       } as any);
       return structuredText(res);
+    },
+  });
+
+  server.addTool({
+    name: 'firecrawl_page_links',
+    annotations: {
+      title: 'Firecrawl page links',
+      readOnlyHint: true, // Reads one page's links; does not modify the target site.
+      openWorldHint: true, // Operates against arbitrary user-supplied URLs.
+      destructiveHint: false,
+    },
+    description: `
+Return every link on one web page, without the page's text. Use this when the request asks which pages a page links to (for example the pages a docs index or a blog list points to), or to collect links to follow up with \`firecrawl_scrape\`. For a whole site's URLs use \`firecrawl_map\` instead.
+
+\`url\` may omit the scheme (\`example.com\`); it is read as https. Returns \`links\`, a list of absolute URLs in the order they appear.
+`,
+    parameters: z.object({
+      url: httpUrl(),
+    }),
+    execute: async (
+      args: unknown,
+      { session, log, client: mcpClient }
+    ): Promise<ContentResult> => {
+      const { url } = args as { url: string };
+      const client = getClient(session);
+      log.info('Reading page links', { url: String(url) });
+      const res = await client.scrape(String(url), {
+        formats: ['links'],
+        origin: requestOrigin(mcpClient, session),
+      } as any);
+      const links = Array.isArray((res as any)?.links) ? (res as any).links : [];
+      return structuredText({ url: String(url), links });
     },
   });
 
