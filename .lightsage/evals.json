@@ -12,7 +12,7 @@
         "Get me the full content of https://docs.firecrawl.dev/introduction as clean markdown so I can read it."
       ],
       "judges": [
-        "The agent returns readable markdown content extracted from the Firecrawl introduction page."
+        "The agent returns the page's content as readable markdown text including headings and paragraphs from the Firecrawl introduction page."
       ],
       "tools": [
         "firecrawl_scrape"
@@ -23,10 +23,10 @@
       "id": "search-the-web-for-recent-news",
       "name": "Search the web for recent news",
       "prompts": [
-        "What are the latest developments in LLM context window sizes? Search the web and give me a summary with sources."
+        "What are the latest developments in LLM context window sizes? Give me current results from the web."
       ],
       "judges": [
-        "The agent returns ranked web search results with excerpts and URLs about recent LLM context window advancements."
+        "The agent returns a set of recent, relevant web results about LLM context window sizes with titles, snippets, and URLs."
       ],
       "tools": [
         "firecrawl_search"
@@ -34,13 +34,13 @@
       "runs": 3
     },
     {
-      "id": "discover-urls-on-a-website",
-      "name": "Discover URLs on a website",
+      "id": "map-all-urls-on-a-website",
+      "name": "Map all URLs on a website",
       "prompts": [
-        "List all the URLs available under https://www.firecrawl.dev without downloading their content \u2014 I just need the site map."
+        "Give me a full list of URLs on https://firecrawl.dev without fetching each page's content."
       ],
       "judges": [
-        "The agent returns a list of URLs discovered under firecrawl.dev without fetching full page content."
+        "The agent returns a list of discovered URLs from the firecrawl.dev domain using the map tool."
       ],
       "tools": [
         "firecrawl_map"
@@ -48,70 +48,58 @@
       "runs": 3
     },
     {
-      "id": "look-up-a-protein-s-function-and-location",
-      "name": "Look up a protein's function and location",
-      "prompts": [
-        "Where is the protein TP53 located in the cell, and what does it do according to UniProt?"
-      ],
-      "judges": [
-        "The agent returns curated subcellular location, function, and GO terms for TP53 from UniProtKB/Swiss-Prot."
-      ],
-      "tools": [
-        "firecrawl_research_lookup_protein"
-      ],
-      "runs": 3
-    },
-    {
       "id": "crawl-a-documentation-site",
       "name": "Crawl a documentation site",
       "prompts": [
-        "Crawl https://docs.firecrawl.dev up to 20 pages and return the markdown content of each page so I can build a local knowledge base."
+        "Crawl https://docs.firecrawl.dev and return the markdown content from up to 20 pages under the /features path."
       ],
       "judges": [
-        "The agent starts and completes a crawl job returning markdown content from multiple pages under docs.firecrawl.dev."
+        "The agent initiates a crawl scoped to the /features path, retrieves content from multiple pages, and returns markdown results."
       ],
       "tools": [
-        "firecrawl_crawl",
-        "firecrawl_check_crawl_status"
+        "firecrawl_check_crawl_status",
+        "firecrawl_crawl"
       ],
       "runs": 3
     },
     {
-      "id": "create-a-page-change-monitor",
-      "name": "Create a page change monitor",
+      "id": "interact-with-a-dynamic-page",
+      "name": "Interact with a dynamic page",
       "prompts": [
-        "Set up a monitor that checks https://openai.com/news every day and alerts me if any new announcements appear."
+        "Go to https://news.ycombinator.com and click on the first story link, then return the content of the page it opens."
       ],
       "judges": [
-        "The agent creates a monitor targeting the OpenAI news page on a daily schedule and returns the monitor ID or confirmation."
+        "The agent uses a browser interaction to navigate to Hacker News, clicks a story link, and returns readable content from the destination page."
       ],
       "tools": [
-        "firecrawl_monitor_create"
+        "firecrawl_scrape",
+        "firecrawl_interact"
       ],
       "runs": 3
     },
     {
-      "id": "run-an-immediate-monitor-check",
-      "name": "Run an immediate monitor check",
+      "id": "run-a-structured-research-agent-job",
+      "name": "Run a structured research agent job",
       "prompts": [
-        "I have a monitor with ID mon_abc123. Run it right now outside its normal schedule so I can see the latest diff immediately."
+        "Find the founding year, CEO name, and headquarters city for Stripe, Plaid, and Brex. Return the results as structured JSON."
       ],
       "judges": [
-        "The agent queues an immediate check for the specified monitor and returns the queued check details."
+        "The agent returns a JSON object or array with founding year, CEO name, and headquarters city for each of the three companies."
       ],
       "tools": [
-        "firecrawl_monitor_run"
+        "firecrawl_agent_status",
+        "firecrawl_agent"
       ],
       "runs": 3
     },
     {
-      "id": "search-scientific-papers-on-a-topic",
-      "name": "Search scientific papers on a topic",
+      "id": "search-for-scientific-papers-on-a-topic",
+      "name": "Search for scientific papers on a topic",
       "prompts": [
-        "Find recent research papers about CRISPR off-target effects from the last two years, ranked by relevance."
+        "Find recent research papers about transformer attention mechanisms and their computational efficiency. Show me titles, authors, and abstracts."
       ],
       "judges": [
-        "The agent returns a list of paper results with titles, abstracts, and source identifiers related to CRISPR off-target effects."
+        "The agent returns a list of relevant scientific papers with titles, authors, and abstract summaries on transformer attention efficiency."
       ],
       "tools": [
         "firecrawl_research_search_papers"
@@ -119,45 +107,46 @@
       "runs": 3
     },
     {
-      "id": "list-recent-monitor-check-history",
-      "name": "List recent monitor check history",
+      "id": "create-a-page-change-monitor",
+      "name": "Create a page change monitor",
       "prompts": [
-        "Show me the last 10 checks for monitor ID mon_abc123, including any that had errors."
+        "Set up a monitor that checks https://openai.com/news every day and alerts me when new articles are published."
       ],
       "judges": [
-        "The agent returns a list of up to 10 historical check summaries for the specified monitor with their statuses."
+        "The agent creates a recurring monitor targeting the OpenAI news page on a daily schedule and returns a monitor ID or confirmation."
       ],
       "tools": [
-        "firecrawl_monitor_checks"
+        "firecrawl_monitor_create"
       ],
       "runs": 3
     },
     {
-      "id": "check-current-firecrawl-credit-balance",
-      "name": "Check current Firecrawl credit balance",
+      "id": "look-up-a-company-s-contact-details",
+      "name": "Look up a company's contact details",
       "prompts": [
-        "How many Firecrawl credits do I have left in my current billing period?"
+        "Find the LinkedIn URL, website, and employee count for the company Notion (notion.so)."
       ],
       "judges": [
-        "The agent returns the current remaining credit balance for the authenticated Firecrawl account."
+        "The agent returns enriched firmographic data for Notion including at least one of LinkedIn URL, website, or employee count."
+      ],
+      "tools": [
+        "people_company_enrich"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "check-firecrawl-credit-balance",
+      "name": "Check Firecrawl credit balance",
+      "prompts": [
+        "How many Firecrawl credits do I have left in my account right now?"
+      ],
+      "judges": [
+        "The agent calls the credit usage tool and reports the remaining credit balance for the authenticated account."
       ],
       "tools": [
         "firecrawl_credit_usage"
       ],
       "runs": 3
-    },
-    {
-      "id": "list-all-links-on-docs-index-page",
-      "name": "List all links on the Firecrawl docs introduction",
-      "prompts": [
-        "Get me every link on https://docs.firecrawl.dev/introduction. I only want the URLs, not the page's text."
-      ],
-      "judges": [
-        "The agent returns a list of absolute URLs found on the Firecrawl docs introduction page, without the page's full text content."
-      ],
-      "tools": [
-        "firecrawl_page_links"
-      ]
     }
   ]
 }
