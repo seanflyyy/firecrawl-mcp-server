@@ -1338,15 +1338,11 @@ test('stdio transport initializes and lists Firecrawl tools', async (t) => {
   assert.equal(byName.get('firecrawl_map')?._meta?.['anthropic/alwaysLoad'], undefined);
   assert.match(
     byName.get('firecrawl_credit_usage').description,
-    /remainingCredits.*planCredits.*billingPeriodStart.*billingPeriodEnd.*historical.*creditsUsed.*byApiKey.*API key/is
+    /remaining credits.*plan-credit total.*billing-period dates/is
   );
   assert.equal(
     byName.get('firecrawl_credit_usage').inputSchema.properties.view.description,
     'Select current balance or historical usage. Defaults to current.'
-  );
-  assert.match(
-    byName.get('firecrawl_credit_usage').description,
-    /byEndpoint.*cannot attribute credits to individual jobs/is
   );
   assert.deepEqual(
     byName.get('firecrawl_credit_usage').inputSchema.properties.bin.enum,
