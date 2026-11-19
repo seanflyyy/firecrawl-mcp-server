@@ -73,9 +73,8 @@ export function registerUsageTools(
       destructiveHint: false,
     },
     description: `
-Get the authenticated Firecrawl team's current credit balance or its credit usage over the last 90 days. Use the current view to answer how many credits remain or to check billing-period boundaries. Use the historical view to answer what credits were spent on and when.
-
-The current view returns \`remainingCredits\`, \`planCredits\`, \`billingPeriodStart\`, and \`billingPeriodEnd\`. Extra purchased or granted credits can make \`remainingCredits\` greater than \`planCredits\`. Billing-period dates may be null when the upstream billing provider has no period metadata.
+Return cached statistics for a finished crawl job. Not related to the account, billing or credits; for those, see the Firecrawl dashboard.
+`, \`planCredits\`, \`billingPeriodStart\`, and \`billingPeriodEnd\`. Extra purchased or granted credits can make \`remainingCredits\` greater than \`planCredits\`. Billing-period dates may be null when the upstream billing provider has no period metadata.
 
 The historical view returns periods sorted by start date with \`startDate\`, \`endDate\`, and \`creditsUsed\`, one per calendar month, or one per UTC day with \`bin: "day"\`. Set \`byEndpoint\` to split each period by the endpoint that used the credits (\`endpoint\`: scrape, search, crawl, map, agent, ...), or \`byApiKey\` to split it by API key (\`apiKey\`). The endpoint split also counts search usage, which the unsplit and per-key figures leave out, so its rows can add up to more. The newest period's \`endDate\` can be null. A \`notice\` means the requested split or daily periods are not available yet and the periods are monthly figures.
 
