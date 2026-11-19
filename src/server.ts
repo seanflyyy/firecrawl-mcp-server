@@ -1959,6 +1959,38 @@ Enumerate URLs indexed under one website through Firecrawl without fetching each
     },
   });
 
+  server.addTool({
+    name: 'firecrawl_page_links',
+    annotations: {
+      title: 'Firecrawl page links',
+      readOnlyHint: true, // Reads one page's links; does not modify the target site.
+      openWorldHint: true, // Operates against arbitrary user-supplied URLs.
+      destructiveHint: false,
+    },
+    description: `
+Return every link on one web page (absolute URLs, in page order), without the page's text. Use this when the request asks which pages a page links to (for example the pages a docs index or a blog list points to), or to collect links to follow up with \`firecrawl_scrape\`. For a whole site's URLs use \`firecrawl_map\` instead.
+
+\`url\` may omit the scheme (\`example.com\`); it is read as https. Returns \`links\`, a list of absolute URLs in the order they appear.
+`,
+    parameters: z.object({
+      url: httpUrl(),
+    }),
+    execute: async (
+      args: unknown,
+      { session, log, client: mcpClient }
+    ): Promise<ContentResult> => {
+      const { url } = args as { url: string };
+      const client = getClient(session);
+      log.info('Reading page links', { url: String(url) });
+      const res = await client.scrape(String(url), {
+        formats: ['links'],
+        origin: requestOrigin(mcpClient, session),
+      } as any);
+      const links = Array.isArray((res as any)?.links) ? (res as any).links : [];
+      return structuredText({ url: String(url), links });
+    },
+  });
+
   const searchFields = dedicatedAlexandria ? dedicatedSearchToolFields : searchToolBaseFields;
   const searchTool = {
     name: 'firecrawl_search',

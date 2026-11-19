@@ -145,6 +145,19 @@
         "firecrawl_credit_usage"
       ],
       "runs": 3
+    },
+    {
+      "id": "list-all-links-on-docs-index-page",
+      "name": "List all links on docs index page",
+      "prompts": [
+        "Can you get me all the links that appear on https://docs.python.org/3/index.html? I want to see every URL that page points to."
+      ],
+      "judges": [
+        "The agent returns a list of absolute URLs found on the Python 3 docs index page, without including the page's full text content."
+      ],
+      "tools": [
+        "firecrawl_page_links"
+      ]
     }
   ]
 }
