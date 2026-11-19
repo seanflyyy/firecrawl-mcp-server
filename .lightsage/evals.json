@@ -1,0 +1,150 @@
+{
+  "$schema": "https://lightsage.com/schemas/mcp-evals.v1.json",
+  "agents": [
+    "claude-code:claude-sonnet-5-5",
+    "codex:gpt-6-1-terra"
+  ],
+  "evals": [
+    {
+      "id": "scrape-a-webpage-into-markdown",
+      "name": "Scrape a webpage into markdown",
+      "prompts": [
+        "Get me the full content of https://docs.firecrawl.dev/introduction as clean markdown so I can read it."
+      ],
+      "judges": [
+        "The agent returns readable markdown content extracted from the Firecrawl introduction page."
+      ],
+      "tools": [
+        "firecrawl_scrape"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "search-the-web-for-recent-news",
+      "name": "Search the web for recent news",
+      "prompts": [
+        "What are the latest developments in LLM context window sizes? Search the web and give me a summary with sources."
+      ],
+      "judges": [
+        "The agent returns ranked web search results with excerpts and URLs about recent LLM context window advancements."
+      ],
+      "tools": [
+        "firecrawl_search"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "discover-urls-on-a-website",
+      "name": "Discover URLs on a website",
+      "prompts": [
+        "List all the URLs available under https://www.firecrawl.dev without downloading their content — I just need the site map."
+      ],
+      "judges": [
+        "The agent returns a list of URLs discovered under firecrawl.dev without fetching full page content."
+      ],
+      "tools": [
+        "firecrawl_map"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "look-up-a-protein-s-function-and-location",
+      "name": "Look up a protein's function and location",
+      "prompts": [
+        "Where is the protein TP53 located in the cell, and what does it do according to UniProt?"
+      ],
+      "judges": [
+        "The agent returns curated subcellular location, function, and GO terms for TP53 from UniProtKB/Swiss-Prot."
+      ],
+      "tools": [
+        "firecrawl_research_lookup_protein"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "crawl-a-documentation-site",
+      "name": "Crawl a documentation site",
+      "prompts": [
+        "Crawl https://docs.firecrawl.dev up to 20 pages and return the markdown content of each page so I can build a local knowledge base."
+      ],
+      "judges": [
+        "The agent starts and completes a crawl job returning markdown content from multiple pages under docs.firecrawl.dev."
+      ],
+      "tools": [
+        "firecrawl_crawl",
+        "firecrawl_check_crawl_status"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "create-a-page-change-monitor",
+      "name": "Create a page change monitor",
+      "prompts": [
+        "Set up a monitor that checks https://openai.com/news every day and alerts me if any new announcements appear."
+      ],
+      "judges": [
+        "The agent creates a monitor targeting the OpenAI news page on a daily schedule and returns the monitor ID or confirmation."
+      ],
+      "tools": [
+        "firecrawl_monitor_create"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "run-an-immediate-monitor-check",
+      "name": "Run an immediate monitor check",
+      "prompts": [
+        "I have a monitor with ID mon_abc123. Run it right now outside its normal schedule so I can see the latest diff immediately."
+      ],
+      "judges": [
+        "The agent queues an immediate check for the specified monitor and returns the queued check details."
+      ],
+      "tools": [
+        "firecrawl_monitor_run"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "search-scientific-papers-on-a-topic",
+      "name": "Search scientific papers on a topic",
+      "prompts": [
+        "Find recent research papers about CRISPR off-target effects from the last two years, ranked by relevance."
+      ],
+      "judges": [
+        "The agent returns a list of paper results with titles, abstracts, and source identifiers related to CRISPR off-target effects."
+      ],
+      "tools": [
+        "firecrawl_research_search_papers"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "list-recent-monitor-check-history",
+      "name": "List recent monitor check history",
+      "prompts": [
+        "Show me the last 10 checks for monitor ID mon_abc123, including any that had errors."
+      ],
+      "judges": [
+        "The agent returns a list of up to 10 historical check summaries for the specified monitor with their statuses."
+      ],
+      "tools": [
+        "firecrawl_monitor_checks"
+      ],
+      "runs": 3
+    },
+    {
+      "id": "check-current-firecrawl-credit-balance",
+      "name": "Check current Firecrawl credit balance",
+      "prompts": [
+        "How many Firecrawl credits do I have left in my current billing period?"
+      ],
+      "judges": [
+        "The agent returns the current remaining credit balance for the authenticated Firecrawl account."
+      ],
+      "tools": [
+        "firecrawl_credit_usage"
+      ],
+      "runs": 3
+    }
+  ]
+}
