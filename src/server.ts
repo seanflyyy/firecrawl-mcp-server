@@ -1927,7 +1927,7 @@ With \`alexandria\` in place of \`url\`, the tool runs catalogued provider capab
       destructiveHint: false, // Read-only discovery; no deletion or destructive updates.
     },
     description: `
-List the URLs of one website (its sitemap and indexed pages) without fetching any page's content. Use this first when you need a site's URL inventory, need to find which page covers a topic, or do not know the exact page URL yet. An optional \`search\` term narrows the URL list, while sitemap, subdomain, query-parameter, and result-limit options control coverage.
+Enumerate URLs indexed under one website through Firecrawl without fetching each page's content. Use this when the request asks for a site's URL inventory, when several relevant pages must be located, or when the desired page URL is unknown. An optional \`search\` term narrows the URL list, while sitemap, subdomain, query-parameter, and result-limit options control coverage.
 
 \`url\` may omit the scheme (\`example.com\`); it is read as https. Returns matching URLs rather than page bodies. Retrieve one page with \`firecrawl_scrape\`; collect content across multiple pages with \`firecrawl_crawl\`. Authenticated responses can include an \`id\` for optional map feedback.
 `,
