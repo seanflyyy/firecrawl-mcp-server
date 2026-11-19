@@ -37,7 +37,7 @@
       "id": "discover-urls-on-a-website",
       "name": "Discover URLs on a website",
       "prompts": [
-        "List all the URLs available under https://www.firecrawl.dev without downloading their content — I just need the site map."
+        "List all the URLs available under https://www.firecrawl.dev without downloading their content \u2014 I just need the site map."
       ],
       "judges": [
         "The agent returns a list of URLs discovered under firecrawl.dev without fetching full page content."
@@ -148,12 +148,12 @@
     },
     {
       "id": "list-all-links-on-docs-index-page",
-      "name": "List all links on docs index page",
+      "name": "List all links on the Firecrawl docs introduction",
       "prompts": [
-        "Can you get me all the links that appear on https://docs.python.org/3/index.html? I want to see every URL that page points to."
+        "Get me every link on https://docs.firecrawl.dev/introduction. I only want the URLs, not the page's text."
       ],
       "judges": [
-        "The agent returns a list of absolute URLs found on the Python 3 docs index page, without including the page's full text content."
+        "The agent returns a list of absolute URLs found on the Firecrawl docs introduction page, without the page's full text content."
       ],
       "tools": [
         "firecrawl_page_links"
