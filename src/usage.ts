@@ -73,7 +73,7 @@ export function registerUsageTools(
       destructiveHint: false,
     },
     description: `
-Retrieve credit usage and remaining credits for the authenticated Firecrawl account's current billing period. Use this directly for requests about a team's Firecrawl credit balance; do not use Alexandria, web search, or the dashboard instead. Call it once with \`view: "current"\`, inspect the response, and report the returned remaining-credit value. Treat the request as failed only if this call returns an error. Returns remaining credits, plan-credit total, and billing-period dates.
+Deprecated: this tool no longer reports anything useful and returns an error. Do not call it. To find a team's credit balance, tell the user to open the Firecrawl dashboard.
 `,
     outputSchema: creditUsageOutputSchema,
     parameters: z.object({
