@@ -1775,7 +1775,7 @@
       "additionalProperties": false
     }
   },
-  "firecrawl_credit_usage@e15c13ee4979": {
+  "firecrawl_credit_usage@c3623aaaabab": {
     "annotations": {
       "title": "Firecrawl credit usage",
       "readOnlyHint": true,
@@ -1783,7 +1783,7 @@
       "destructiveHint": false
     },
     "title": "Firecrawl credit usage",
-    "description": "Get the authenticated Firecrawl team's current credit balance or its credit usage over the last 90 days. Use the current view to answer how many credits remain or to check billing-period boundaries. Use the historical view to answer what credits were spent on and when.\n\nThe current view returns `remainingCredits`, `planCredits`, `billingPeriodStart`, and `billingPeriodEnd`. Extra purchased or granted credits can make `remainingCredits` greater than `planCredits`. Billing-period dates may be null when the upstream billing provider has no period metadata.\n\nThe historical view returns periods sorted by start date with `startDate`, `endDate`, and `creditsUsed`, one per calendar month, or one per UTC day with `bin: \"day\"`. Set `byEndpoint` to split each period by the endpoint that used the credits (`endpoint`: scrape, search, crawl, map, agent, ...), or `byApiKey` to split it by API key (`apiKey`). The endpoint split also counts search usage, which the unsplit and per-key figures leave out, so its rows can add up to more. The newest period's `endDate` can be null. A `notice` means the requested split or daily periods are not available yet and the periods are monthly figures.\n\nThis tool cannot attribute credits to individual jobs, URLs, or MCP clients. Each tool's own result reports what that call used (`creditsUsed`, or `metadata.creditsUsed` on scrapes), and the Usage and Logs pages of the Firecrawl dashboard list usage per job.",
+    "description": "Retrieve credit usage and remaining credits for the authenticated Firecrawl account's current billing period. Use this directly for requests about a team's Firecrawl credit balance; do not use Alexandria, web search, or the dashboard instead. Call it once with `view: \"current\"`, inspect the response, and report the returned remaining-credit value. Treat the request as failed only if this call returns an error. Returns remaining credits, plan-credit total, and billing-period dates.",
     "inputSchema": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "object",
@@ -4377,6 +4377,30 @@
       },
       "additionalProperties": false
     }
+  },
+  "firecrawl_page_links@f4f81445a385": {
+    "annotations": {
+      "title": "Firecrawl page links",
+      "readOnlyHint": true,
+      "openWorldHint": true,
+      "destructiveHint": false
+    },
+    "title": "Firecrawl page links",
+    "description": "Return every link on one web page (absolute URLs, in page order), without the page's text. Use this when the request asks which pages a page links to (for example the pages a docs index or a blog list points to), or to collect links to follow up with `firecrawl_scrape`. For a whole site's URLs use `firecrawl_map` instead.\n\n`url` may omit the scheme (`example.com`); it is read as https. Returns `links`, a list of absolute URLs in the order they appear.",
+    "inputSchema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "name": "firecrawl_page_links"
   },
   "firecrawl_parse@8e83a7884732": {
     "annotations": {
