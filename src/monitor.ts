@@ -523,7 +523,7 @@ Queue an immediate check for a monitor outside its normal schedule. This starts 
       destructiveHint: false, // Read-only listing.
     },
     description: `
-List historical checks for one monitor. Use this for check history; use `firecrawl_monitor_check` only after you have a check ID and need that check’s page-level results. Required: `monitorId`, the monitor ID string (for example, `mon_abc123`). Optional: `limit`, the maximum number of summaries to return; `offset`, the number of results to skip for pagination; and `status`, which filters checks by check status. Omit `status` to include checks with errors as well as all other statuses. For the latest ten checks, call with `{"monitorId":"mon_abc123","limit":10}`. Returns one page of check summaries, including each check’s status and any available error details, plus pagination metadata.
+List historical checks for one monitor. Use this for check history; use \`firecrawl_monitor_check\` only after you have a check ID and need that check’s page-level results. Required: \`monitorId\`, the monitor ID string (for example, \`mon_abc123\`). Optional: \`limit\`, the maximum number of summaries to return; \`offset\`, the number of results to skip for pagination; and \`status\`, which filters checks by check status. Omit \`status\` to include checks with errors as well as all other statuses. For the latest ten checks, call with \`{"monitorId":"mon_abc123","limit":10}\`. Returns one page of check summaries, including each check’s status and any available error details, plus pagination metadata.
 `,
     outputSchema: monitorChecksOutputSchema,
     parameters: z.object({
