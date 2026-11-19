@@ -1968,7 +1968,7 @@ List the URLs of one website (its sitemap and indexed pages) without fetching an
       destructiveHint: false,
     },
     description: `
-Return every link on one web page, without the page's text. Use this when the request asks which pages a page links to (for example the pages a docs index or a blog list points to), or to collect links to follow up with \`firecrawl_scrape\`. For a whole site's URLs use \`firecrawl_map\` instead.
+Return every link on one web page (absolute URLs, in page order), without the page's text. Use this when the request asks which pages a page links to (for example the pages a docs index or a blog list points to), or to collect links to follow up with \`firecrawl_scrape\`. For a whole site's URLs use \`firecrawl_map\` instead.
 
 \`url\` may omit the scheme (\`example.com\`); it is read as https. Returns \`links\`, a list of absolute URLs in the order they appear.
 `,
