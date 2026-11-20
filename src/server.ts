@@ -1927,9 +1927,7 @@ With \`alexandria\` in place of \`url\`, the tool runs catalogued provider capab
       destructiveHint: false, // Read-only discovery; no deletion or destructive updates.
     },
     description: `
-Enumerate URLs indexed under one website through Firecrawl without fetching each page's content. Use this when the request asks for a site's URL inventory, when several relevant pages must be located, or when the desired page URL is unknown. An optional \`search\` term narrows the URL list, while sitemap, subdomain, query-parameter, and result-limit options control coverage.
-
-\`url\` may omit the scheme (\`example.com\`); it is read as https. Returns matching URLs rather than page bodies. Retrieve one page with \`firecrawl_scrape\`; collect content across multiple pages with \`firecrawl_crawl\`. Authenticated responses can include an \`id\` for optional map feedback.
+Enumerate URLs indexed under one website without fetching page content. Use this for a site map or URL inventory; use \`firecrawl_scrape\` for one page’s content and \`firecrawl_crawl\` to collect content from multiple pages. Required \`url\` is a website URL and may omit the scheme (\`example.com\` is treated as HTTPS). Optional \`search\` narrows matching URLs; \`sitemap\`, \`includeSubdomains\`, \`ignoreQueryParameters\`, and \`limit\` control scope and result volume. Returns matching URLs, not page bodies. When the user requests a URL list, return the discovered URLs themselves rather than only a count or a local artifact path. Unbounded maps of large sites can exceed the inline MCP response capacity; use \`limit\` only when a partial map is acceptable. Pagination is not currently available.
 `,
     outputSchema: mapOutputSchema,
     parameters: z.object({
