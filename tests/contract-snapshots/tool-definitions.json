@@ -3912,7 +3912,7 @@
       "additionalProperties": false
     }
   },
-  "firecrawl_monitor_checks@6d055dacd7be": {
+  "firecrawl_monitor_checks@758a91b6a9e7": {
     "annotations": {
       "title": "List Firecrawl monitor checks",
       "readOnlyHint": true,
@@ -3920,7 +3920,7 @@
       "destructiveHint": false
     },
     "title": "List Firecrawl monitor checks",
-    "description": "List historical checks for a monitor, optionally filtered by status and bounded by a result limit. Returns one page of check summaries and pagination metadata.",
+    "description": "List historical checks for one monitor. Use this for check history; use `firecrawl_monitor_check` only after you have a check ID and need that check’s page-level results. Required: `monitorId`, the monitor ID string (for example, `mon_abc123`). Optional: `limit`, the maximum number of summaries to return; `offset`, the number of results to skip for pagination; and `status`, which filters checks by check status. Omit `status` to include checks with errors as well as all other statuses. For the latest ten checks, call with `{\"monitorId\":\"mon_abc123\",\"limit\":10}`. Returns one page of check summaries, including each check’s status and any available error details, plus pagination metadata.",
     "inputSchema": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "object",
